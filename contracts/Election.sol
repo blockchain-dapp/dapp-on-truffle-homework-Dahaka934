@@ -17,6 +17,10 @@ contract Election {
         addCandidate("Candidate 2");
     }
 
+    event votedEvent (
+        uint indexed _candidateId
+    );
+
     function addCandidate (string _name) private {
         candidatesCount++;
         candidates[candidatesCount] = Candidate(candidatesCount, _name, 0);
@@ -31,5 +35,7 @@ contract Election {
         voters[msg.sender] = true;
         // update candidate vote Count
         candidates[_candidateId].voteCount ++;
+
+        votedEvent(_candidateId);
     }
 }
